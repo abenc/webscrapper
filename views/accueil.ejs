@@ -1,0 +1,75 @@
+<html>
+    <head>
+        <title>Web Scrapper</title>
+        <!-- Compiled and minified CSS -->
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Import materialize.css-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css" media="screen,projection">
+    </head>
+    <style>
+    .progress{
+      display:none;
+    }
+    
+    .centerize {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    }
+
+    </style>
+
+    <body >
+      <div class="parallax-container">
+        <div class="parallax"><img src="http://img11.hostingpics.net/pics/582452argus.jpg"></div>
+      </div>
+      <div class="container">
+
+
+
+
+
+
+          <h1 style="text-align:center;color:#E57373">Côte argus d'une annonce leboncoin </h1>
+            <div class="row">
+              <form action="/scrapleboncoin" method="post" class="col s12">
+                <div class="row">
+
+                  <div class="input-field col s12">
+                    <input id="urltoscrap" name="urltoscrap" type="text" class="validate">
+                    <label for="urltoscrap" data-error="wrong" data-success="">Entrez une URL Leboncoin</label>
+
+                    <div class="centerize">
+                        <button id='send' class="btn waves-effect waves-light " style="margin-top:5px;" type="submit" name="action">Calculer la côte
+                           <i class="material-icons right">search</i>
+                        </button>
+                      </div>
+
+                  </div>
+                </div>
+              </form>
+            </div>
+
+              <div class="progress">
+                  <div class="indeterminate"></div>
+              </div>
+
+
+    </div>
+
+
+            <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
+    </body>
+</html>
+<script>
+$(document).ready(function() {
+
+  $('#send').on('click',function(){
+    $('.progress').css('display','inline-block');
+  });
+
+$('.parallax').parallax();
+
+});
+</script>

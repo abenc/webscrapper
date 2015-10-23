@@ -1,0 +1,131 @@
+<html>
+    <head>
+        <title>Web Scrapper</title>
+        <!-- Compiled and minified CSS -->
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Import materialize.css-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css" media="screen,projection">
+    </head>
+
+    <style>
+    h2{
+
+      margin-left:15px;
+    }
+    .row{
+
+    }
+    </style>
+
+    <body>
+      <div class="container">
+
+        <nav>
+           <div class="nav-wrapper light-blue darken-2">
+             <ul class="left hide-on-med-and-down">
+                <li><a href="/"><i class="material-icons right">search</i>chercher une autre annonce</a></li>
+              </ul>
+           </div>
+         </nav>
+
+
+        <div class="row card-panel " style="margin:0;">
+
+
+            <div class="col s6">
+
+              <div class="card large">
+                  <div class="card-image waves-effect waves-block waves-light">
+                    <img class="activator" src="<%=jsonleboncoin.urlimg%>">
+                  </div>
+
+                  <div class="card-content">
+                    <span class="card-title activator grey-text text-darken-4"><%=jsonleboncoin.marque%> <%=jsonleboncoin.modele%><i class="material-icons right">more_vert</i></span>
+                    <p>Prix de la voiture : <%=jsonleboncoin.prix%> €</p>
+                  </div>
+
+                  <div class="card-reveal">
+                    <span class="card-title grey-text text-darken-4"><%=jsonleboncoin.titre%><i class="material-icons right">close</i></span>
+                        <p>
+                         Annee : <%=jsonleboncoin.anneeModele%></br>
+                         Kilometrage : <%=jsonleboncoin.kilometrage%> KM</br>
+                         Carburant : <%=jsonleboncoin.carburant%></br>
+                         Vitesse: <%=jsonleboncoin.vitesse%></br>
+                         Prix : <%=jsonleboncoin.prix%> € </br>
+                       </p>
+                  </div>
+              </div>
+
+
+            </div>
+
+            <div class="col s6" >
+
+              <div class ="pannel-right" style="float:right;">
+                 <div class="input-field col s12 grey lighten-3">
+                     <select>
+                       <option value="" disabled selected>Choisir un autre pack </option>
+                       <%for(i=0;i<jsonresultats.length;i++){%>
+                           <option value="/scraplacentrale/<%=jsonresultats[i].url%>"><%=jsonresultats[i].titre%><option>
+                       <%}%>
+                     </select>
+                 </div>
+
+                <div class ="card-panel grey lighten-3">
+                    <img class="materialboxed"  width="550px" src="<%=jsonlacentrale.urlhisto%>">
+                </div>
+
+                <div <% if(jsonlacentrale.affaire){ %>class="card-panel  teal" <%} else{%>class="card-panel  red"<%}%> >
+                  <h5 class="white-text">Avis du comparateur :</h5>
+                  <i class="large material-icons right"><%if(jsonlacentrale.affaire){%>thumb_up<%}else{%>thumb_down<%}%></i>
+
+                  <span class="white-text">
+                    Côte brute : <%=jsonlacentrale.cotebrute.replace(' ','')%> €</br>
+                    Côte affinée : <%=jsonlacentrale.coteaffinee%> €</br>
+                    <% if(jsonlacentrale.affaire){ %>L'offre soumise à l'étude semble être un <strong>bon deal</strong> car le prix de la voiture est de <%=jsonlacentrale.coteaffinee-jsonleboncoin.prix%>€ moins chere que la côte argus<%}
+                     else{%>L'offre soumise à l'étude semble être un <strong>mauvais deal</strong> car le prix de la voiture est de <%=jsonleboncoin.prix-jsonlacentrale.coteaffinee%>€ plus chere que la côte argus<%}%>
+
+                  </span>
+                </div>
+
+
+              </div>
+
+            </div>
+
+      </div>
+    </div>
+
+
+            <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
+    </body>
+</html>
+<script>
+$(document).ready(function() {
+
+  $('select').material_select();
+  //sauvegarde la valeur du pack, et redirige vers l'url correspondante pour scrap le pack voulu sur le site de la centrale
+  $('.input-field').change(function(){
+    sessionStorage.setItem('select',$( ".input-field option:selected" ).text());
+    window.location = $( ".input-field option:selected" ).val();
+  });
+  //cache des options vide qui aparaissent sans raison...
+  $('.input-field li').each(function(i,row){
+
+    if(i>1 && (i%2)==0){
+      $(this).css('display','none');
+    }
+    });
+    //permet d'afficher le pack correspondant
+    if(sessionStorage.getItem('select')==null){
+      $('.input-field .select-dropdown').val($('.input-field option').first().next().text());
+    }
+    else{
+      $('.input-field .select-dropdown').val(sessionStorage.getItem('select'));
+      sessionStorage.clear();
+    }
+
+
+});
+</script>

@@ -1,0 +1,14 @@
+{
+    "name" : "leboncoin-scrap",
+    "version":"0.1.0",
+    "description":"scrap leboncoin site",
+    "author":"Anir <anir.benchabane@gmail.com>",
+    "dependencies":{
+      "express":"latest",
+      "body-parser":"latest",
+      "ejs":"latest",
+      "cookie-session":"latest",
+      "scrap":"latest",
+      "request":"latest"
+    }
+}
