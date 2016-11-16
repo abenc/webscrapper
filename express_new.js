@@ -16,7 +16,9 @@ app.use(session({
 //routes
 
 .get('/',leboncoin.initScrap)
-
+.get('/adrianmotherfucker',function(req,res){
+  req.render('adrian.ejs')
+})
 .post('/scrapleboncoin',urlencodedParser,leboncoin.postAndScrap)
 
 .get('/scraplacentrale',lacentrale.scrapLacentrale)
